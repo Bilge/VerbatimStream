@@ -1,0 +1,21 @@
+{
+    "name": "bilge/verbatim-stream",
+    "authors": [
+        {
+            "name": "Bilge",
+            "email": "bilge@scriptfusion.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Bilge\\Stream\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "php": ">=5.5",
+        "phpunit/phpunit": "*"
+    }
+}
