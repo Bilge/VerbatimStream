@@ -13,7 +13,15 @@ class VerbatimTest extends PHPUnit_Framework_TestCase {
         $this->assertSame('foobar', file_get_contents(self::PROTOCOL . 'foobar'));
     }
 
-    public function testFstat() {
+    public function testFread() {
+        $h = fopen(self::PROTOCOL . 'fubar', 'rb');
+
+        $this->assertSame('fubar', fread($h, 1024));
+
+        fclose($h);
+    }
+
+    public function testStat() {
         $h = fopen(self::PROTOCOL . '1234567890', 'rb');
 
         $this->assertSame(10, fstat($h)['size']);
@@ -21,12 +29,8 @@ class VerbatimTest extends PHPUnit_Framework_TestCase {
         fclose($h);
     }
 
-    public function testFread() {
-        $h = fopen(self::PROTOCOL . 'fubar', 'rb');
-
-        $this->assertSame('fubar', fread($h, 1024));
-
-        fclose($h);
+    public function testUrlStat() {
+        $this->assertSame(10, filesize(self::PROTOCOL . '1234567890'));
     }
 
     /** @depends testFileGetContents */

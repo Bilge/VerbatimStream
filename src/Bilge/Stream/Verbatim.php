@@ -11,8 +11,7 @@ class Verbatim {
     ;
 
     public function stream_open($path, $mode, $options, &$opened_path) {
-        //Strip 'verbatim://' prefix.
-        $this->data = urldecode(substr($path, 11));
+        $this->data = $this->getPayload($path);
         $this->length = strlen($this->data);
         $this->ptr = 0;
 
@@ -35,5 +34,22 @@ class Verbatim {
 
     public function stream_eof() {
         return $this->ptr >= $this->length;
+    }
+
+    public function url_stat($path, $flags) {
+        $h = fopen($path, 'rb');
+
+        try { return fstat($h); }
+        finally { fclose($h); }
+    }
+
+    /**
+     * Removes 'verbatim://' prefix from the specified path.
+     *
+     * @param $path
+     * @return string Payload.
+     */
+    private function getPayload($path) {
+        return urldecode(substr($path, 11));
     }
 }
