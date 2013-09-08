@@ -20,7 +20,9 @@ class Verbatim {
 
     public function stream_stat() {
         return [
-            'size' => $this->length
+            //Read-only file.
+            'mode' => 0100004,
+            'size' => $this->length,
         ];
     }
 

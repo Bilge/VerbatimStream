@@ -33,6 +33,22 @@ class VerbatimTest extends PHPUnit_Framework_TestCase {
         $this->assertSame(10, filesize(self::PROTOCOL . '1234567890'));
     }
 
+    public function testReadable() {
+        $this->assertTrue(is_readable(self::PROTOCOL));
+    }
+
+    public function testFile() {
+        $this->assertTrue(is_file(self::PROTOCOL));
+    }
+
+    public function testNotWritable() {
+        $this->assertFalse(is_writable(self::PROTOCOL));
+    }
+
+    public function testNotDirectory() {
+        $this->assertFalse(is_dir(self::PROTOCOL));
+    }
+
     /** @depends testFileGetContents */
     public function testEmpty() {
         $this->assertEmpty(file_get_contents(self::PROTOCOL));
